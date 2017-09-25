@@ -124,6 +124,16 @@ abstract class Chart
     }
 
     /**
+     * Get the current theme
+     *
+     * @return BaseTheme
+     */
+    public function getTheme( )
+    {
+        return $this->theme;
+    }
+
+    /**
      * Set the width
      *
      * @param integer $value
