@@ -1,0 +1,25 @@
+{
+    "name": "lukaswhite/svg-charts",
+    "description": "A library for dynamically producing charts and graphs as SVGs.",
+    "keywords": ["charts", "charting", "graphs", "SVG"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Lukas White",
+            "email": "hello@lukaswhite.com"
+        }
+    ],
+    "type": "project",
+    "require": {
+		"php": ">=5.4"
+    },
+	"require-dev": {
+		"phpunit/phpunit": "~4.0"
+    },
+	"autoload": {
+        "psr-4": {
+            "Lukaswhite\\SvgCharts\\": "src/Lukaswhite/SvgCharts",
+            "SVG\\": "src/Lukaswhite/SVG"
+        }
+    }
+}

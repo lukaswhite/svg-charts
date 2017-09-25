@@ -1,0 +1,41 @@
+version: 2
+
+jobs:
+  build:
+    working_directory: /var/www
+    docker:
+      - image: php:7.1-apache
+        environment:
+          APP_ENV: test
+    steps:
+      - run:
+          name: Install system packages
+          command: apt-get update && apt-get -y install git && apt-get -y install zip unzip
+      - run:
+          name: Install PHP extensions
+          command: docker-php-ext-install pdo
+      - run:
+          name: Set up XDebug
+          command: pecl install xdebug && docker-php-ext-enable xdebug
+      - checkout
+      - run:
+          name: Install Composer
+          command: |
+            php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+            php -r "if (hash_file('SHA384', 'composer-setup.php') === trim(file_get_contents('https://composer.github.io/installer.sig'))) { echo 'Installer verified'; } else { echo 'Installer invalid'; unlink('composer-setup.php'); } echo PHP_EOL;"
+            php composer-setup.php
+            php -r "unlink('composer-setup.php');"
+      - run:
+          name: Display PHP information
+          command: |
+            php -v
+            php composer.phar --version
+      - run:
+          name: Install project dependencies
+          command: php composer.phar install
+      - run:
+          name: Create test reports directory
+          command: mkdir -p $CIRCLE_TEST_REPORTS/phpunit
+      - run:
+          name: Run Unit tests
+          command: vendor/bin/phpunit --log-junit $CIRCLE_TEST_REPORTS/phpunit/junit.xml --coverage-clover $CIRCLE_TEST_REPORTS/phpunit/clover.xml --coverage-html $CIRCLE_TEST_REPORTS/phpunit/html/
