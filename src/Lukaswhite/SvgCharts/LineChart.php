@@ -28,14 +28,14 @@ class LineChart extends Chart
      *
      * @var int|null
      */
-    private $min = null;
+    protected $min = null;
 
     /**
      * The maximum value
      *
      * @var int|null
      */
-    private $max = null;
+    protected $max = null;
 
 
     /**
@@ -232,7 +232,7 @@ class LineChart extends Chart
      * Determine whether the chart is empty; i.e. it has no data
      * @return bool
      */
-    private function isEmpty()
+    protected function isEmpty()
     {
         foreach ($this->data['data'] as $data) {
             if (!empty($data)) {
@@ -248,7 +248,7 @@ class LineChart extends Chart
      *
      * @return array
      */
-    private function dimensions()
+    protected function dimensions()
     {
         return [
             'axisX0' => $this->axisX0,
@@ -263,7 +263,7 @@ class LineChart extends Chart
      *
      * @return array
      */
-    private function grid()
+    protected function grid()
     {
         $res = [
             'values' => [],
@@ -291,7 +291,9 @@ class LineChart extends Chart
         for ($i = 1; $i < $this->valueGroups; $i++) {
             $y = $this->height * .9 - $this->margin - ($i / $this->valueGroups) * ($this->height * .9 - 2 * $this->margin);
             $res['values'][$y] = $this->min + $i * ($this->max - $this->min) / $this->valueGroups;
-            $res['values'][$y] += $this->options[ 'start' ];
+            if ( isset( $this->options[ 'start' ] ) ) {
+                $res[ 'values' ][ $y ] += $this->options[ 'start' ];
+            }
 
             if ( isset( $this->options[ 'valueFormatter' ] ) ) {
                 $res['values'][$y] = $this->options['valueFormatter']($res['values'][$y]);
@@ -307,7 +309,7 @@ class LineChart extends Chart
      *
      * @return array
      */
-    private function paths()
+    protected function paths()
     {
         $res = [];
 
@@ -351,7 +353,7 @@ class LineChart extends Chart
      *
      * @todo Return an array of points instead of a string
      */
-    private function lines( )
+    protected function lines( )
     {
         $res = [];
 
@@ -399,7 +401,7 @@ class LineChart extends Chart
      *
      * @return array
      */
-    private function getLines( )
+    protected function getLines( )
     {
         $wth = $this->width * .9 - 2 * $this->margin;
         $hth = $this->height * .9 - 2 * $this->margin;

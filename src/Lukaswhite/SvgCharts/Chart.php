@@ -120,7 +120,7 @@ abstract class Chart
         if ( isset( $this->options[ 'id' ] ) ) {
             return $this->options[ 'id' ];
         }
-        return sprintf( 'chart_%s', str_random( 8 ) );
+        return uniqid( 'chart_' );
     }
 
     /**

@@ -3,6 +3,8 @@ require_once('vendor/autoload.php');
 
 setlocale(LC_MONETARY, 'en_GB');
 
+
+
 $chart = new \Lukaswhite\SvgCharts\LineChart([
     'labels' => [
         'Oct 2016',
@@ -52,5 +54,25 @@ $chart->setWidth( 1200 )
     ->excludeDimensions( );
 
 $svg = $chart->render();
+
+//file_put_contents( __DIR__ . '/example.html', $svg );
+
+$pieChart = new \Lukaswhite\SvgCharts\PieChart([
+    'labels'    =>  [
+        'one',
+        'two',
+        'three',
+    ],
+    'data' => [
+        100,
+        240,
+        200
+    ]
+], [ ]);
+
+$pieChart->setWidth( 400 )
+    ->setHeight( 400 );
+
+$svg = $pieChart->render();
 
 file_put_contents( __DIR__ . '/example.html', $svg );
