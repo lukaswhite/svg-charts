@@ -17,10 +17,12 @@ class LineChart extends Chart
      * @var array
      */
     protected $options = [
-        'mode'          =>  'lines',
-        'valueGroups'   =>  5,
-        'margin'        =>  10,
-        'offset'        =>  0,
+        'mode'              =>  'lines',
+        'valueGroups'       =>  5,
+        'margin'            =>  10,
+        'offset'            =>  0,
+        'yAxisLeftPosition' =>  10, // i.e. the Y axis starts 10% from the left
+        'labelRotation'     =>  0,
     ];
 
     /**
@@ -185,6 +187,12 @@ class LineChart extends Chart
             $text->setStyle( 'font-size', $this->theme->xAxisFontSize );
             $text->setAttribute( 'fill', $this->theme->axisColor );
 
+            // Optionally apply the rotation
+            if ( $this->options[ 'labelRotation' ] > 0 ) {
+                $text->setAttribute( 'transform', sprintf( 'rotate(%d,%d,%d)', $this->options[ 'labelRotation' ], $x, ( $this->height * .93 ) ) );
+                $text->setStyle( 'text-anchor', 'start' );
+            }
+
             $doc->addChild( $text );
 
 
@@ -276,7 +284,7 @@ class LineChart extends Chart
 
         $i = 0;
         $wth = ($this->width * .9 - 2 * $this->margin) / count($this->data['labels']);
-        $x = $this->margin + ($this->width * 0.1);
+        $x = $this->margin + ($this->width * ( ( $this->options[ 'yAxisLeftPosition' ] / 100 ) ) );
 
         foreach ($this->data['labels'] as $ts => $label) {
             if (0 === $i++ % $step) {
@@ -442,7 +450,7 @@ class LineChart extends Chart
     {
         switch ( $name ) {
             case 'axisX0':
-                return $this->margin + $this->width * 0.1;
+                return $this->margin + $this->width * ( $this->options[ 'yAxisLeftPosition' ] / 100 );
                 break;
             case 'axisY0':
                 return $this->height * 0.9 - $this->margin;
@@ -459,5 +467,6 @@ class LineChart extends Chart
 
 
     }
+
 
 }

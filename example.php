@@ -50,12 +50,15 @@ $chart = new \Lukaswhite\SvgCharts\LineChart([
 ]);
 
 $chart->setWidth( 1200 )
-    ->setHeight( 420 )
-    ->excludeDimensions( );
+    ->setHeight( 420 );
+    //->excludeDimensions( );
+
+$chart->getTheme()->xAxisFontSize = '8pt';
 
 $svg = $chart->render();
 
-//file_put_contents( __DIR__ . '/example.html', $svg );
+file_put_contents( __DIR__ . '/example.html', $svg );
+exit();
 
 $pieChart = new \Lukaswhite\SvgCharts\PieChart([
     'labels'    =>  [
