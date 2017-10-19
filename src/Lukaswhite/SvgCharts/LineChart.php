@@ -283,7 +283,7 @@ class LineChart extends Chart
         $step = 1;
 
         $i = 0;
-        $wth = ($this->width * .9 - 2 * $this->margin) / count($this->data['labels']);
+        $wth = ($this->width * ( 1 - ( $this->options[ 'yAxisLeftPosition' ] / 100 ) ) - 2 * $this->margin) / count($this->data['labels']);
         $x = $this->margin + ($this->width * ( ( $this->options[ 'yAxisLeftPosition' ] / 100 ) ) );
 
         foreach ($this->data['labels'] as $ts => $label) {
@@ -365,7 +365,7 @@ class LineChart extends Chart
     {
         $res = [];
 
-        $wth = $this->width * .9 - 2 * $this->margin;
+        $wth = $this->width * ( 1 - ( $this->options[ 'yAxisLeftPosition' ] / 100 ) ) - ( 2 * $this->margin );
         $hth = $this->height * .9 - 2 * $this->margin;
 
         foreach ($this->data['data'] as $data) {
@@ -411,7 +411,7 @@ class LineChart extends Chart
      */
     protected function getLines( )
     {
-        $wth = $this->width * .9 - 2 * $this->margin;
+        $wth = $this->width * ( 1 - ( $this->options[ 'yAxisLeftPosition' ] / 100 ) ) - 2 * $this->margin;
         $hth = $this->height * .9 - 2 * $this->margin;
 
         $lines = [ ];

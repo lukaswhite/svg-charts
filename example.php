@@ -41,6 +41,7 @@ $chart = new \Lukaswhite\SvgCharts\LineChart([
     'valueGroups' => 10,
     'start' => 70000,
     'offset' => 1000,
+    'yAxisLeftPosition' => 5,
     'valueFormatter' => function($value){               // Closure for formatting values
         //return $value;            // Used setlocale(LC_MONETARY, 'en_US.UTF-8') for this example
         //return money_format("%.0n", $value);
